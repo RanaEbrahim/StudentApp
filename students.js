@@ -6,6 +6,16 @@ const fs=require('fs')
 
 const addStudent = (id,name,degree,comment) =>{
     const student = loadStudents() 
+
+    var sum=0;
+    
+    degree.forEach((ele) => {
+        sum=sum+ele;
+        
+    })
+
+
+
     const duplicateStudent = student.filter((obj)=>{
        return obj.id === id
     })
@@ -15,7 +25,8 @@ const addStudent = (id,name,degree,comment) =>{
         id:id,
         name:name,
         degree:degree,
-        comment:comment 
+        comment:comment ,
+        total:sum
     })
     saveStudents(student)
     console.log(student)
@@ -24,58 +35,9 @@ const addStudent = (id,name,degree,comment) =>{
    else{
        console.log("id is duplicated")
    }
-//    const data = fs.readFileSync('student.json').toString()
-   
-//     const sum=0;
-//     for(i=0;i<4;i++){
-//      sum=sum+data.degree[i];
-//      console.log('sum='+sum)
-//     }
-
-
-    // for(i=0;i<degree.length;i++){
-    //  sum=sum+degree[i];
-    //  console.log('sum='+sum)
-    // }
-    var sum=0;
-    var y;
-    degree.forEach((ele) => {
-        // y=parseInt(ele);
-        sum=sum+ele;
-        
-    })
-    // console.log("sum" + sum)
-    
-//     var currentSearchResult = 'example'
-
-// fs.readFile('student.json', function (err, data) {
-//     var json = JSON.parse(data)
-//     json.push('Total: ' + currentSearchResult)
-
-//     fs.writeFile("student.json", JSON.stringify(json))
-
-///////////////////////
-var data = fs.readFileSync('student.json');
-var myObject= JSON.parse(data);
-
-let newData = {
-    total: sum
-}  
-myObject.push(newData);
-
-// Writing to our JSON file
-var newData2 = JSON.stringify(myObject);
-fs.writeFile("student.json", newData2, (err) => {
-  // Error checking
-  if (err) throw err;
-  console.log("sum added");
-});
-
-
-
 
 }
-
+    
 const loadStudents=() =>{
     try{
         const databuffer=fs.readFileSync('student.json').toString()
@@ -133,16 +95,9 @@ const readSTudent=(id) =>{
 const listSTudents=() =>{
     const students=loadStudents()
     students.forEach((element) =>{
-        console.log(element.id + element.name)
+        console.log(element.id , element.name)
     })
 }
-
-
-
-
-
-
-
 
 
 
@@ -153,3 +108,7 @@ module.exports={
     readSTudent,
     listSTudents
 }
+
+
+
+
